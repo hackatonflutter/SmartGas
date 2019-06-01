@@ -1,18 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_gas/src/models/Car.dart';
-import 'package:smart_gas/src/provider/CarService.dart';
 
-class DialogCrearCarro extends StatefulWidget {
+class DialogCrearOrder extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _DialogCrearCarroPageState();
+  State<StatefulWidget> createState() => new _DialogCrearOrderPageState();
 }
 
-class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
+class _DialogCrearOrderPageState extends State<DialogCrearOrder> {
   DateTime selectedDate = DateTime.now();
   String _marca = '';
-  String _placa='';
-  String _modelo='';
   bool _checkCombustible = true;
   int _radioCombustible = 0;
   String _result = '';
@@ -21,7 +17,7 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text('Crear automóvil'),
+        title: Text('Crear orden'),
       ),
       body: Container(
         child: ListView(
@@ -87,7 +83,7 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
       ),
       onChanged: (valor) {
         setState(() {
-          _modelo = valor;
+          _marca = valor;
         });
       },
     );
@@ -112,7 +108,7 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
       ),
       onChanged: (valor) {
         setState(() {
-          _placa = valor;
+          _marca = valor;
         });
       },
     );
@@ -206,21 +202,9 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
         textColor: Colors.white,
         child: Text('Guardar Cambios'),
         onPressed: () {
-          _createCar();
+          
         },
       ),
     );
-  }
-
-  void _createCar(){
-    CarService carservice=new CarService();
-    Car car=new Car();
-    car.marca=_marca;
-    car.modelo=_modelo;
-    car.combustible=_result;
-    car.placa=_placa;
-     carservice.createCar(car).then((response){
-       Navigator.pop(context,true);
-     });
   }
 }

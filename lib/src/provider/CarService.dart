@@ -13,7 +13,7 @@ class CarService {
     String email = prefs.get('email');
     var url =
         "http://edumoreno27-001-site3.etempurl.com/public/api/car/crearcar";
-    String response;
+    String respuesta;
 
     var dataJson = json.encode({
       'marca': car.marca,
@@ -28,22 +28,22 @@ class CarService {
               headers: {HttpHeaders.CONTENT_TYPE: "application/json"},
               body: dataJson)
           .then((Client.Response response) {
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           Map<String, dynamic> parsedJson = json.decode(response.body);
-          response = parsedJson['status'];
+          respuesta = parsedJson['status'].toString();
         }
       });
     } catch (error) {
-      response = "error";
+      respuesta = "error";
     }
-    return response;
+    return respuesta;
   }
 
   Future<List<Car>> getCars(String email) async {
     List<Car> lista = new List<Car>();
     var url =
         "http://edumoreno27-001-site3.etempurl.com/public/api/car/obtenercarros";
-    String response;
+    String respuesta;
 
     var dataJson = json.encode({
       'email': email,
@@ -54,9 +54,9 @@ class CarService {
               headers: {HttpHeaders.CONTENT_TYPE: "application/json"},
               body: dataJson)
           .then((Client.Response response) {
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           Map<String, dynamic> parsedJson = json.decode(response.body);
-          response = parsedJson['status'];
+          respuesta = parsedJson['status'].toString();
           var jsonArrayAlimentos = parsedJson["carros"];
           Car car;
 
@@ -73,7 +73,7 @@ class CarService {
         }
       });
     } catch (error) {
-      response = "error";
+      respuesta = 'error';
     }
     return lista;
   }

@@ -16,7 +16,7 @@ class _UserTabState extends State<UserTab> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: ListView(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(45.0),
@@ -33,11 +33,10 @@ class _UserTabState extends State<UserTab> {
                   )
                 ],
               ),
-            )
-            ,Container(
-            child: new Form(
+            ),
+            new Form(
               key: _formKey,
-              child: new ListView(
+              child: new Column(
                 children: <Widget>[
                   new ListTile(
                     leading: const Icon(Icons.email),
@@ -99,7 +98,7 @@ class _UserTabState extends State<UserTab> {
                 ],
               ),
             ),
-          )
+
           ],
         ),
         floatingActionButton: FloatingActionButton(

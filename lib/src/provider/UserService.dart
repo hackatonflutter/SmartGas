@@ -140,7 +140,7 @@ class UserService {
   Future<String> sendUserToApi(User user) async {
     var url =
         "http://edumoreno27-001-site3.etempurl.com/public/api/user/crearusuario";
-    String response;
+    String respuesta;
 
     var dataJson = json.encode({
       'nombre': user.name,
@@ -155,14 +155,14 @@ class UserService {
               headers: {HttpHeaders.CONTENT_TYPE: "application/json"},
               body: dataJson)
           .then((Client.Response response) {
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           Map<String, dynamic> parsedJson = json.decode(response.body);
-          response = parsedJson['status'];
+          respuesta = parsedJson['status'].toString();
         }
       });
     } catch (error) {
-      response = "error";
+      respuesta = "error";
     }
-    return response;
+    return respuesta;
   }
 }
