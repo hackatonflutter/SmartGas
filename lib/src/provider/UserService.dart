@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as Client;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:amazon_cognito_identity_dart/cognito.dart';
-import 'package:smart_gas/src/models/User.dart';
+import '../models/User.dart';
 import '../utils/Constants.dart';
+import 'dart:io';
 
 class UserService {
   CognitoUserPool _userPool;
@@ -106,13 +110,7 @@ class UserService {
 
   /// Sign up new user
   Future<User> signUp(String email, String password, String name) async {
-    //CognitoUserPoolData data;
-    /*
-    final userAttributes = [
-      new AttributeArg(name: 'first_name', value: "Renato"),
-      new AttributeArg(name: 'last_name', value: "Mercado"),
-    ];
-    */
+   
 
     var data;
     try {
@@ -136,5 +134,31 @@ class UserService {
     if (_cognitoUser != null) {
       return _cognitoUser.signOut();
     }
+  }
+
+
+  Future<String> sendUserToApi(User user) async {
+    var url = "http://edumoreno27-001-site3.etempurl.com/public/api/user/crearusuario";
+    String response;
+
+    var dataJson = json.encode({
+      'nombre': user.name,
+      'email': user.email,
+      'telefono': user.phoneNumber,
+      'dni': user.dni,
+      'uid': "gaaaaaa",
+    });
+
+    try {
+      await Client.post(url,headers: {HttpHeaders.CONTENT_TYPE: "application/json"},body: dataJson).then((Client.Response response) {
+        if (response.statusCode == 200) {
+          Map<String, dynamic> parsedJson = json.decode(response.body);
+          response = parsedJson['status'];
+        }
+      });
+    } catch (error) {
+      response = "error";
+    }
+    return response;
   }
 }

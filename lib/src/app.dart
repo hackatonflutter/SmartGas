@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:smart_gas/src/pages/login/logUser.dart';
 import 'package:smart_gas/src/pages/home/Home.dart';
 
 
@@ -27,7 +29,7 @@ class App extends StatelessWidget with PortraitModeMixin {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.indigo,
+        primaryColor: Colors.purple,
       ),
       home: Scaffold(
         body: LoginScreen(),
