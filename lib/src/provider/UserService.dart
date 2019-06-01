@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as Client;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:amazon_cognito_identity_dart/cognito.dart';
 import '../models/User.dart';
 import '../utils/Constants.dart';

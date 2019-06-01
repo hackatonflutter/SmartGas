@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: new EdgeInsets.fromLTRB(20,20.0,20.0,5.0),
                             width: screenSize.width,
                             child: new RaisedButton(
-                              shape: StadiumBorder(),
+                              shape: StadiumBorder(), 
                               child: new Text(
                                 'Iniciar sesión',
                                 style: new TextStyle(color: Colors.white),
