@@ -68,52 +68,55 @@ class _HomeScreenState extends State<HomeScreen> {
                         BottomNavigationBarItem(
                             icon: new Icon(
                               Icons.directions_car,
-                              color: Colors.orange,
+                              color: Colors.purple,
                             ),
                             title: Text(
                               'Mis Carros',
                               style: new TextStyle(
-                                  color: Colors.amber[700],
+                                  color: Colors.purple[700],
                                   fontWeight: FontWeight.w700),
                             )),
                         BottomNavigationBarItem(
                             icon: new Icon(
                               Icons.list,
-                              color: Colors.orange,
+                              color: Colors.purple,
                             ),
                             title: Text(
                               'Ordenes',
                               style: new TextStyle(
-                                  color: Colors.amber[700],
+                                  color: Colors.purple[700],
                                   fontWeight: FontWeight.w700),
                             )),
                         BottomNavigationBarItem(
                             icon: new Icon(
                               Icons.book,
-                              color: Colors.orange,
+                              color: Colors.purple,
                             ),
                             title: Text(
                               'Premios',
                               style: new TextStyle(
-                                  color: Colors.amber[700],
+                                  color: Colors.purple[700],
                                   fontWeight: FontWeight.w700),
                             )),
                         BottomNavigationBarItem(
                             icon: new Icon(
                               Icons.person,
-                              color: Colors.orange,
+                              color: Colors.purple,
                             ),
                             title: Text(
                               'Cuenta',
                               style: new TextStyle(
-                                  color: Colors.amber[700],
+                                  color: Colors.purple[700],
                                   fontWeight: FontWeight.w700),
                             ))
                       ],
                     )));
           }
           return new Scaffold(
-              appBar: new AppBar(title: new Text('Loading...')));
+              body: Center(
+                child: CircularProgressIndicator(),
+              ) 
+              );
         });
   }
 }
