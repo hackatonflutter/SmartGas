@@ -1,47 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gas/src/models/User.dart';
-import 'package:smart_gas/src/pages/login/logUser.dart';
-
 import '../../models/User.dart';
 import '../../utils/Constants.dart';
 import '../../provider/UserService.dart';
 import 'package:amazon_cognito_identity_dart/cognito.dart';
-
+import './tabs/cars/CarsTab.dart';
+import './tabs/orders/OrderTab.dart';
+import './tabs/progression/ProgressionTab.dart';
+import './tabs/userSettings/userSettings.dart';
+import '../login/logUser.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
-
   @override
   _HomeScreenState createState() => new _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final _userService = new UserService(Constants.userPool);
-
   User _user = new User();
   bool _isAuthenticated = false;
+  int _currentIndex = 0;
 
+  List<Widget> _children = [CarsTab(), OrderTab(), ProgressionTab(), UserTab()];
 
   Future<UserService> _getValues(BuildContext context) async {
     try {
-
       await _userService.init();
       _isAuthenticated = await _userService.checkAuthenticated();
       if (_isAuthenticated) {
-        // get user attributes from cognito
         _user = await _userService.getCurrentUser();
-
-        // get session credentials
-        /*
-        final credentials = await _userService.getCredentials();
-        _awsSigV4Client = new AwsSigV4Client(
-            credentials.accessKeyId, credentials.secretAccessKey, Constants.endpoint,
-            region: Constants.region, sessionToken: credentials.sessionToken);
-*/
-
-        // get previous count
-        //_counterService = new CounterService(_awsSigV4Client);
-        // _counter = await _counterService.getCounter();
       }
       return _userService;
     } on CognitoClientException catch (e) {
@@ -53,6 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new FutureBuilder(
@@ -62,22 +54,69 @@ class _HomeScreenState extends State<HomeScreen> {
             if (!_isAuthenticated) {
               return new LoginScreen();
             }
-            return new Scaffold(
-              appBar: new AppBar(
-                title: new Text('bicibici',style: 
-                          TextStyle(
-                  fontFamily: "Roboto",
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white),),
-              ),
-              body: Center(child: Text(
-                "Yastaya"
-              ),),
-            );
+            return new WillPopScope(
+                onWillPop: () async => false,
+                child: Scaffold(
+                    resizeToAvoidBottomPadding: false,
+                    backgroundColor: Colors.white,
+                    body: _children[_currentIndex],
+                    bottomNavigationBar: BottomNavigationBar(
+                      onTap: onTabTapped,
+                      currentIndex: _currentIndex,
+                      type: BottomNavigationBarType.shifting,
+                      items: [
+                        BottomNavigationBarItem(
+                            icon: new Icon(
+                              Icons.directions_car,
+                              color: Colors.purple,
+                            ),
+                            title: Text(
+                              'Mis Carros',
+                              style: new TextStyle(
+                                  color: Colors.purple[700],
+                                  fontWeight: FontWeight.w700),
+                            )),
+                        BottomNavigationBarItem(
+                            icon: new Icon(
+                              Icons.list,
+                              color: Colors.purple,
+                            ),
+                            title: Text(
+                              'Ordenes',
+                              style: new TextStyle(
+                                  color: Colors.purple[700],
+                                  fontWeight: FontWeight.w700),
+                            )),
+                        BottomNavigationBarItem(
+                            icon: new Icon(
+                              Icons.book,
+                              color: Colors.purple,
+                            ),
+                            title: Text(
+                              'Premios',
+                              style: new TextStyle(
+                                  color: Colors.purple[700],
+                                  fontWeight: FontWeight.w700),
+                            )),
+                        BottomNavigationBarItem(
+                            icon: new Icon(
+                              Icons.person,
+                              color: Colors.purple,
+                            ),
+                            title: Text(
+                              'Cuenta',
+                              style: new TextStyle(
+                                  color: Colors.purple[700],
+                                  fontWeight: FontWeight.w700),
+                            ))
+                      ],
+                    )));
           }
           return new Scaffold(
-              appBar: new AppBar(title: new Text('Loading...')));
+              body: Center(
+                child: CircularProgressIndicator(),
+              ) 
+              );
         });
   }
 }

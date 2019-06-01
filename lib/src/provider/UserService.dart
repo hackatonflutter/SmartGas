@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as Client;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:amazon_cognito_identity_dart/cognito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/User.dart';
 import '../utils/Constants.dart';
 import 'dart:io';
@@ -16,7 +16,6 @@ class UserService {
 
   /// Initiate user session from local storage if present
   Future<bool> init() async {
-
     _cognitoUser = await _userPool.getCurrentUser();
     if (_cognitoUser == null) {
       return false;
@@ -84,19 +83,23 @@ class UserService {
     user.confirmed = isConfirmed;
     user.hasAccess = true;
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email);
     return user;
   }
 
   /// Confirm user's account with confirmation code sent to email
   Future<bool> confirmAccount(String email, String confirmationCode) async {
-    _cognitoUser = new CognitoUser(email, _userPool, storage: _userPool.storage);
+    _cognitoUser =
+        new CognitoUser(email, _userPool, storage: _userPool.storage);
 
     return await _cognitoUser.confirmRegistration(confirmationCode);
   }
 
   /// Resend confirmation code to user's email
   Future<void> resendConfirmationCode(String email) async {
-    _cognitoUser = new CognitoUser(email, _userPool, storage: _userPool.storage);
+    _cognitoUser =
+        new CognitoUser(email, _userPool, storage: _userPool.storage);
     await _cognitoUser.resendConfirmationCode();
   }
 
@@ -110,11 +113,9 @@ class UserService {
 
   /// Sign up new user
   Future<User> signUp(String email, String password, String name) async {
-   
-
     var data;
     try {
-     data = await _userPool.signUp(email, password); 
+      data = await _userPool.signUp(email, password);
     } catch (e) {
       print(e);
     }
@@ -136,9 +137,9 @@ class UserService {
     }
   }
 
-
   Future<String> sendUserToApi(User user) async {
-    var url = "http://edumoreno27-001-site3.etempurl.com/public/api/user/crearusuario";
+    var url =
+        "http://edumoreno27-001-site3.etempurl.com/public/api/user/crearusuario";
     String response;
 
     var dataJson = json.encode({
@@ -150,7 +151,10 @@ class UserService {
     });
 
     try {
-      await Client.post(url,headers: {HttpHeaders.CONTENT_TYPE: "application/json"},body: dataJson).then((Client.Response response) {
+      await Client.post(url,
+              headers: {HttpHeaders.CONTENT_TYPE: "application/json"},
+              body: dataJson)
+          .then((Client.Response response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> parsedJson = json.decode(response.body);
           response = parsedJson['status'];
