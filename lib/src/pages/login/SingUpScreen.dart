@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../Models/User.dart';
+import '../../models/User.dart';
 import '../../utils/Constants.dart';
 import '../../provider/UserService.dart';
-import './ConfirmationScreen.dart';
+import './ConfirmnationScreen.dart';
 
 import 'package:amazon_cognito_identity_dart/cognito.dart';
 
@@ -22,9 +22,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String message;
     bool signUpSuccess = false;
     try {
+      await userService.sendUserToApi(_user);
       _user = await userService.signUp(_user.email, _user.password, _user.name);
       signUpSuccess = true;
-      message = 'User sign up successful!';
+      message = 'Cuenta creada con exito!';
+
     } on CognitoClientException catch (e) {
       if (e.code == 'UsernameExistsException' ||
           e.code == 'InvalidParameterException' ||
@@ -75,17 +77,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               key: _formKey,
               child: new ListView(
                 children: <Widget>[
-                  /*
-                  new ListTile(
-                    leading: const Icon(Icons.account_box),
-                    title: new TextFormField(
-                      decoration: new InputDecoration(labelText: 'Name'),
-                      onSaved: (String name) {
-                        _user.name = name;
-                      },
-                    ),
-                  ),
-                  */
                   new ListTile(
                     leading: const Icon(Icons.email),
                     title: new TextFormField(
@@ -106,6 +97,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       obscureText: true,
                       onSaved: (String password) {
                         _user.password = password;
+                      },
+                    ),
+                  ),
+                  new ListTile(
+                    leading: const Icon(Icons.phone),
+                    title: new TextFormField(
+                      keyboardType:   TextInputType.number,
+                      decoration: new InputDecoration(
+                        hintText: 'Telefono!',
+                      ),
+                      onSaved: (String telefono) {
+                        _user.phoneNumber = int.parse(telefono);
+                      },
+                    ),
+                  ),
+                  new ListTile(
+                    leading: const Icon(Icons.accessibility),
+                    title: new TextFormField(
+                      decoration: new InputDecoration(
+                        hintText: 'Nombre!',
+                      ),
+                      onSaved: (String nombre) {
+                        _user.name = nombre;
+                      },
+                    ),
+                  ),
+                  new ListTile(
+                    leading: const Icon(Icons.card_giftcard),
+                    title: new TextFormField(
+                      decoration: new InputDecoration(
+                        hintText: 'DNI!',
+                      ),
+                      onSaved: (String dni) {
+                        _user.dni = dni;
                       },
                     ),
                   ),

@@ -4,6 +4,8 @@ class User {
   String email;
   String name;
   String password;
+  int phoneNumber;
+  String dni;
   bool confirmed = false;
   bool hasAccess = false;
 

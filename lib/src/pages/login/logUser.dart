@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../models/User.dart';
 import '../../provider/UserService.dart';
 import '../../utils/Constants.dart';
 
 import './SingUpScreen.dart';
-import './ConfirmationScreen.dart';
-import '../HomeScreen.dart';
+import './ConfirmnationScreen.dart';
+import '../home/Home.dart';
 
 import 'package:amazon_cognito_identity_dart/cognito.dart';
 
@@ -95,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Padding(
                             padding: EdgeInsets.all(60),
                             child: 
-                          new Text('bicibici',
+                          new Text('Smart Gas',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                   fontFamily: "Roboto",

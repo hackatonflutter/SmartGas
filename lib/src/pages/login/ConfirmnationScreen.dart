@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gas/src/models/User.dart';
-import '../../Models/User.dart';
+import '../../models/User.dart';
 import '../../utils/Constants.dart';
-import '../../UserService.dart';
+import '../../provider/UserService.dart';
 
 import './logUser.dart';
 
@@ -101,7 +100,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     final Size screenSize = MediaQuery.of(context).size;
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Confirm Account'),
+        title: new Text('Confirmar cuenta'),
       ),
       body: new Builder(
           builder: (BuildContext context) => new Container(
@@ -136,14 +135,15 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                         padding: new EdgeInsets.all(20.0),
                         width: screenSize.width,
                         child: new RaisedButton(
+                          shape: StadiumBorder(),
                           child: new Text(
-                            'Submit',
+                            'Confirmar',
                             style: new TextStyle(color: Colors.white),
                           ),
                           onPressed: () {
                             _submit(context);
                           },
-                          color: Colors.blue,
+                          color: Colors.purple,
                         ),
                         margin: new EdgeInsets.only(
                           top: 10.0,
