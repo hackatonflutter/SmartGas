@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_gas/src/models/Car.dart';
+import 'package:smart_gas/src/provider/CarService.dart';
 
 class DialogCrearCarro extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class DialogCrearCarro extends StatefulWidget {
 class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
   DateTime selectedDate = DateTime.now();
   String _marca = '';
+  String _placa='';
+  String _modelo='';
   bool _checkCombustible = true;
   int _radioCombustible = 0;
   String _result = '';
@@ -83,7 +87,7 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
       ),
       onChanged: (valor) {
         setState(() {
-          _marca = valor;
+          _modelo = valor;
         });
       },
     );
@@ -108,7 +112,7 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
       ),
       onChanged: (valor) {
         setState(() {
-          _marca = valor;
+          _placa = valor;
         });
       },
     );
@@ -206,5 +210,17 @@ class _DialogCrearCarroPageState extends State<DialogCrearCarro> {
         },
       ),
     );
+  }
+
+  void _createCar(){
+    CarService carservice=new CarService();
+    Car car=new Car();
+    car.marca=_marca;
+    car.modelo=_modelo;
+    car.combustible=_result;
+    car.placa=_placa;
+     carservice.createCar(car).then((response){
+       Navigator.pop(context);
+     });
   }
 }
