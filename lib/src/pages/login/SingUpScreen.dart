@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Models/User.dart';
 import '../../utils/Constants.dart';
-import '../../Services/UserService.dart';
+import '../../provider/UserService.dart';
 import './ConfirmationScreen.dart';
 
 import 'package:amazon_cognito_identity_dart/cognito.dart';
