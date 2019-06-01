@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(Benefits());
 
-//titlePercent: 'Tu porcentaje de consumo es: ',
-
 class Benefits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,53 +44,54 @@ class _BenefitPageState extends State<BenefitPage> {
     final Size screenSize = MediaQuery.of(context).size;
     return new Scaffold(
       appBar: new AppBar(
+        automaticallyImplyLeading: false,
         title: new Text('Benefits'),
       ),
       body: new Builder(
         builder: (BuildContext context) {
           return new Container(
-            child: new Form(
-              key: _formKey,
-              child: new ListView(
-                children: <Widget>[
-                  new Container(
-                      padding: new EdgeInsets.all(20.0),
-                      width: screenSize.width,
-                      child: new Text('Tu porcentaje de consumo:')),
-                  new Container(
-                      padding: new EdgeInsets.all(20.0),
-                      width: screenSize.width,
-                      child: new Text('.....................................')),
-                  new ListView.builder(
-                      itemCount: _benefits['responseTotalResult'],
-                      itemBuilder: (BuildContext context, int index) {
-                        new CheckboxListTile(
-                            value: _selectedBenefits.contains(
-                                _benefits['responseBody'][index]['benefit_id']),
-                            onChanged: (bool selected) {
-                              _onBenefitSelected(
-                                  selected,
-                                  _benefits['responseBody'][index]
-                                      ['benefit_id']);
-                            },
-                            title: Text(_benefits['responseBody'][index]
-                                ['benefit_id']));
-                      }),
-                  new Container(
-                    child: new RaisedButton(
-                      shape: StadiumBorder(),
-                      child: new Text(
-                        'Aceptar',
-                        style: new TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        //_submit(context);
-                      },
-                      color: Colors.purple,
+            child: new ListView(
+              children: <Widget>[
+                new Container(
+                    padding: new EdgeInsets.all(20.0),
+                    width: screenSize.width,
+                    child: new Text('Tu porcentaje de consumo:')),
+                new Container(
+                    padding: new EdgeInsets.all(20.0),
+                    width: screenSize.width,
+                    child: new Text('.....................................')),
+                // Container(
+                //   height: 50,
+                //   child: new ListView.builder(
+                //       itemCount: _benefits['responseTotalResult'],
+                //       itemBuilder: (BuildContext context, int index) {
+                //         new CheckboxListTile(
+                //             value: _selectedBenefits.contains(
+                //                 _benefits['responseBody'][index]['benefit_id']),
+                //             onChanged: (bool selected) {
+                //               _onBenefitSelected(
+                //                   selected,
+                //                   _benefits['responseBody'][index]
+                //                       ['benefit_id']);
+                //             },
+                //             title: Text(_benefits['responseBody'][index]
+                //                 ['benefit_id']));
+                //       }),
+                // ),
+                new Container(
+                  child: new RaisedButton(
+                    shape: StadiumBorder(),
+                    child: new Text(
+                      'Aceptar',
+                      style: new TextStyle(color: Colors.white),
                     ),
-                  )
-                ],
-              ),
+                    onPressed: () {
+                      //_submit(context);
+                    },
+                    color: Colors.purple,
+                  ),
+                )
+              ],
             ),
           );
         },

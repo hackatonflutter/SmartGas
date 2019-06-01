@@ -7,9 +7,8 @@ static const awsClientId = '';
 static const identityPoolId = '';
 
 // Setup endpoints here:
-static const region = '';
+static const region = 'us-east-1';
 //static const endpoint = 'https://xxxxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev';
 
 static final userPool = new CognitoUserPool(awsUserPoolId, awsClientId);
-
 }

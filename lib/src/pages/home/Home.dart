@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../models/User.dart';
 import '../../utils/Constants.dart';
 import '../../provider/UserService.dart';
@@ -8,6 +9,7 @@ import './tabs/orders/OrderTab.dart';
 import './tabs/progression/ProgressionTab.dart';
 import './tabs/userSettings/userSettings.dart';
 import '../login/logUser.dart';
+import '../../pages/benefits/Benefit.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isAuthenticated = false;
   int _currentIndex = 0;
 
-  List<Widget> _children = [CarsTab(), OrderTab(), ProgressionTab(), UserTab()];
+  List<Widget> _children = [CarsTab(), OrderTab(), BenefitPage(), UserTab()];
 
   Future<UserService> _getValues(BuildContext context) async {
     try {
