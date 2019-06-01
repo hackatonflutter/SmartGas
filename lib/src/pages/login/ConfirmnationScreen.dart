@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_gas/src/models/User.dart';
 import '../../Models/User.dart';
-import '../../Values/Constants.dart';
+import '../../utils/Constants.dart';
 import '../../UserService.dart';
 
 import './logUser.dart';
