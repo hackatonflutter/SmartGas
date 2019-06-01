@@ -65,6 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context) =>
                         new ConfirmationScreen(email: _user.email)),
               );
+            }else{
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (context) =>
+                        new HomeScreen()),
+              );
             }
           }
         },
